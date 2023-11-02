@@ -1,0 +1,25 @@
+2023-11-02T20:55:01.744+01:00  INFO 21868 --- [main] c.p.t.TicketingServiceApplication        : Starting TicketingServiceApplication using Java 18.0.2 with PID 21868 (/Users/i539371/Documents/TicketService/ticketingservice/target/classes started by i539371 in /Users/i539371/Documents/TicketService/ticketingservice)
+2023-11-02T20:55:01.747+01:00  INFO 21868 --- [main] c.p.t.TicketingServiceApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-11-02T20:55:02.036+01:00  INFO 21868 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-02T20:55:02.073+01:00  INFO 21868 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 4 JPA repository interfaces.
+2023-11-02T20:55:02.309+01:00  INFO 21868 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-11-02T20:55:02.313+01:00  INFO 21868 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-11-02T20:55:02.314+01:00  INFO 21868 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-11-02T20:55:02.348+01:00  INFO 21868 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-11-02T20:55:02.348+01:00  INFO 21868 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 583 ms
+2023-11-02T20:55:02.361+01:00  INFO 21868 --- [main] com.zaxxer.hikari.HikariDataSource       : CoreModule - Starting...
+2023-11-02T20:55:02.448+01:00  INFO 21868 --- [main] com.zaxxer.hikari.pool.HikariPool        : CoreModule - Added connection conn0: url=jdbc:h2:mem:CoreModule user=SA
+2023-11-02T20:55:02.449+01:00  INFO 21868 --- [main] com.zaxxer.hikari.HikariDataSource       : CoreModule - Start completed.
+2023-11-02T20:55:02.455+01:00  INFO 21868 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:CoreModule'
+2023-11-02T20:55:02.520+01:00  INFO 21868 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-02T20:55:02.546+01:00  INFO 21868 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+2023-11-02T20:55:02.547+01:00  INFO 21868 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-11-02T20:55:02.689+01:00  INFO 21868 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-02T20:55:03.132+01:00  INFO 21868 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-11-02T20:55:03.156+01:00  INFO 21868 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-02T20:55:03.402+01:00  WARN 21868 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-02T20:55:03.540+01:00  INFO 21868 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-11-02T20:55:03.545+01:00  INFO 21868 --- [main] c.p.t.TicketingServiceApplication        : Started TicketingServiceApplication in 1.974 seconds (process running for 2.415)
+2023-11-02T20:55:46.781+01:00  INFO 21868 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-02T20:55:46.784+01:00  INFO 21868 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : CoreModule - Shutdown initiated...
+2023-11-02T20:55:46.785+01:00  INFO 21868 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : CoreModule - Shutdown completed.
