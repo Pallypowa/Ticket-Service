@@ -116,7 +116,10 @@ public class CoreService {
     }
 
     private Seat findSeat(List<Seat> seats, String seatId) {
-        return seats.stream().filter(s -> s.getId().equals(seatId)).findFirst().orElseThrow(SeatDoesNotExistException::new);
+        return seats
+                .stream()
+                .filter(s -> s.getId().equals(seatId)).findFirst()
+                .orElseThrow(SeatDoesNotExistException::new);
     }
 
 }

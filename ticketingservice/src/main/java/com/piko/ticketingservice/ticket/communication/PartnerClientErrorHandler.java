@@ -30,7 +30,7 @@ public class PartnerClientErrorHandler extends DefaultResponseErrorHandler {
         ErrorResponseDTO errorResponseDTO = mapper.readValue(stringBody, ErrorResponseDTO.class);
         switch (errorResponseDTO.getErrorCode()) {
             case 90001 -> throw new EventDoesNotExistException(ErrorCodes.EVENT_DOES_NOT_EXIST, null);
-            case 90002 -> throw new SeatDoesNotExistException(ErrorCodes.SEAT_DOES_NOT_EXIST, null, null);
+            case 90002 -> throw new SeatDoesNotExistException();
             case 90010 -> throw new SeatIsTakenException();
         }
     }

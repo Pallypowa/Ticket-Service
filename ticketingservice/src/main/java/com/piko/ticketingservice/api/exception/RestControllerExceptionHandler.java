@@ -75,13 +75,10 @@ public class RestControllerExceptionHandler {
 
     @ExceptionHandler(SeatDoesNotExistException.class)
     public ResponseEntity<?> handleSeatNotExistExc(SeatDoesNotExistException exception) {
-        logger.error("Nem létezik ilyen szék! Esemény id: "
-                + exception.getEventId()
-                + " Szék id: "
-                + exception.getSeatId(), exception);
+        logger.error("Nem létezik ilyen szék!");
         return new ResponseEntity<>(
                 new ErrorResponseDTO(false,
-                        exception.getErrorCodes().getErrorCode()),
+                        ErrorCodes.SEAT_DOES_NOT_EXIST.getErrorCode()),
                 HttpStatus.BAD_REQUEST);
     }
 

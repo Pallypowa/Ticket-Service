@@ -94,7 +94,7 @@ public class TicketService {
                 .findFirst();
 
         if (seat.isEmpty()) {
-            throw new SeatDoesNotExistException(ErrorCodes.SEAT_DOES_NOT_EXIST, eventId, seatId);
+            throw new SeatDoesNotExistException();
         }
 
         if (seat.get().isReserved()) {
