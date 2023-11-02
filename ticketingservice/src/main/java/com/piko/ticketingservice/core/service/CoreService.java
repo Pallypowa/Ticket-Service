@@ -1,6 +1,7 @@
 package com.piko.ticketingservice.core.service;
 
 import com.piko.ticketingservice.api.dto.*;
+import com.piko.ticketingservice.api.exception.ErrorCodes;
 import com.piko.ticketingservice.core.exception.BadCardException;
 import com.piko.ticketingservice.core.exception.BadTokenException;
 import com.piko.ticketingservice.core.exception.InsufficientFundsException;
@@ -17,6 +18,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 import java.util.List;
+
+/*
+    This class is responsible for handling user-related business logic, like checking the token for a user, checking user fund etc...
+ */
 
 @Service
 public class CoreService {
@@ -42,7 +47,7 @@ public class CoreService {
 
         //Token has 3 parts
         if (tokenValues.length != 3) {
-            throw new BadTokenException();
+            throw new BadTokenException(ErrorCodes.BAD_USER_TOKEN, token);
         }
 
         //Step 2 - Get token values
@@ -56,12 +61,12 @@ public class CoreService {
         Users user = repositoryManager.getUser(userId);
 
         if (!user.getEmail().equals(email)) {
-            throw new BadTokenException();
+            throw new BadTokenException(ErrorCodes.BAD_USER_TOKEN, token);
         }
 
         List<UserDevice> userDevices = repositoryManager.getDeviceHashesByUser(userId);
         if (userDevices.stream().noneMatch((device) -> device.getDeviceHash().equals(deviceHash))) {
-            throw new BadTokenException();
+            throw new BadTokenException(ErrorCodes.BAD_USER_TOKEN, token);
         }
 
         logger.trace("User token " + token + " successfully validated");
@@ -81,12 +86,10 @@ public class CoreService {
         Long userId = (Long) request.getAttribute("userId");
 
         if (!cardBelongsToUser(userId, paymentDTO.getCardId())) {
-            logger.error(paymentDTO.getCardId() + " does not belong to user " + userId);
-            throw new BadCardException();
+            throw new BadCardException(ErrorCodes.USER_CARD_ISSUE, paymentDTO.getCardId(), eventId);
         }
         //Step 2 - Check if it has enough money
         if (!hasSufficientFunds(cardId, eventId, seatId)) {
-            logger.error("User " + userId + " does not have enough fund on card " + cardId);
             throw new InsufficientFundsException();
         }
 

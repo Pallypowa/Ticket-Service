@@ -2,6 +2,7 @@ package com.piko.ticketingservice.ticket.communication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.piko.ticketingservice.api.dto.ErrorResponseDTO;
+import com.piko.ticketingservice.api.exception.ErrorCodes;
 import com.piko.ticketingservice.ticket.exception.EventDoesNotExistException;
 import com.piko.ticketingservice.ticket.exception.SeatDoesNotExistException;
 import com.piko.ticketingservice.ticket.exception.SeatIsTakenException;
@@ -28,8 +29,8 @@ public class PartnerClientErrorHandler extends DefaultResponseErrorHandler {
         String stringBody = new String(body);
         ErrorResponseDTO errorResponseDTO = mapper.readValue(stringBody, ErrorResponseDTO.class);
         switch (errorResponseDTO.getErrorCode()) {
-            case 90001 -> throw new EventDoesNotExistException();
-            case 90002 -> throw new SeatDoesNotExistException();
+            case 90001 -> throw new EventDoesNotExistException(ErrorCodes.EVENT_DOES_NOT_EXIST, null);
+            case 90002 -> throw new SeatDoesNotExistException(ErrorCodes.SEAT_DOES_NOT_EXIST, null, null);
             case 90010 -> throw new SeatIsTakenException();
         }
     }

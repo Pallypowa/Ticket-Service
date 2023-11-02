@@ -2,7 +2,8 @@ package com.piko.ticketingservice.api;
 
 import com.piko.ticketingservice.api.dto.PaymentDTO;
 import com.piko.ticketingservice.core.service.CoreService;
-import com.piko.ticketingservice.ticket.communication.PartnerClient;
+import com.piko.ticketingservice.ticket.service.TicketService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,28 +15,28 @@ public class EventTicketController {
      */
 
     private final CoreService coreService;
-    private final PartnerClient partnerClient;
+    private final TicketService ticketService;
 
-    public EventTicketController(CoreService coreService, PartnerClient partnerClient) {
+    public EventTicketController(CoreService coreService, TicketService ticketService) {
         this.coreService = coreService;
-        this.partnerClient = partnerClient;
+        this.ticketService = ticketService;
     }
 
     @GetMapping("/getEvents")
-    public ResponseEntity<?> getEvents(@RequestHeader(value = "User-Token") String userToken) {
-        //In this case the event can be directly requested from the ticket module
-        return new ResponseEntity<>(partnerClient.getEvents(), HttpStatus.OK);
+    public ResponseEntity<?> getEvents() {
+        //In this case the event can be directly requested from the ticket module, because we don't need the core service's user logic
+        return new ResponseEntity<>(ticketService.getEvents(), HttpStatus.OK);
     }
 
     @GetMapping("/getEvent/{eventId}")
     public ResponseEntity<?> getEvent(@RequestHeader(value = "User-Token") String userToken,
-                                      @PathVariable Long eventId) {
-        //In this case the event can be directly requested from the ticket module
-        return new ResponseEntity<>(partnerClient.getEvent(eventId), HttpStatus.OK);
+                                      @NotNull @PathVariable Long eventId) {
+        //In this case the event can be directly requested from the ticket module, because we don't need the core service's user logic
+        return new ResponseEntity<>(ticketService.getEvent(eventId), HttpStatus.OK);
     }
 
     @PostMapping("/pay")
-    public ResponseEntity<?> pay(@RequestBody PaymentDTO paymentDTO) {
+    public ResponseEntity<?> pay(@NotNull @RequestBody PaymentDTO paymentDTO) {
         return new ResponseEntity<>(coreService.processPayment(paymentDTO), HttpStatus.OK);
     }
 }

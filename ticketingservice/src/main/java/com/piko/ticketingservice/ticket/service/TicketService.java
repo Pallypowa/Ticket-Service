@@ -1,6 +1,7 @@
 package com.piko.ticketingservice.ticket.service;
 
 import com.piko.ticketingservice.api.dto.*;
+import com.piko.ticketingservice.api.exception.ErrorCodes;
 import com.piko.ticketingservice.ticket.communication.PartnerClient;
 import com.piko.ticketingservice.ticket.exception.EventAlreadyStartedException;
 import com.piko.ticketingservice.ticket.exception.EventDoesNotExistException;
@@ -48,7 +49,7 @@ public class TicketService {
         EventsDTO events = partnerClient.getEvents();
 
         if (!doesEventExist(eventId, events)) {
-            throw new EventDoesNotExistException();
+            throw new EventDoesNotExistException(ErrorCodes.EVENT_DOES_NOT_EXIST, eventId);
         }
 
         return partnerClient.getEvent(eventId);
@@ -58,7 +59,7 @@ public class TicketService {
         EventsDTO events = partnerClient.getEvents();
 
         if (!doesEventExist(eventId, events)) {
-            throw new EventDoesNotExistException();
+            throw new EventDoesNotExistException(ErrorCodes.EVENT_DOES_NOT_EXIST, eventId);
         }
 
         Optional<EventItem> eventItem = events
@@ -67,8 +68,9 @@ public class TicketService {
                 .filter(e -> e.getEventId() == eventId)
                 .findFirst();
 
+        //We know that the event exists
         if (hasEventStarted(eventItem.get().getStartTimeStamp())) {
-            throw new EventAlreadyStartedException();
+            throw new EventAlreadyStartedException(ErrorCodes.EVENT_ALREADY_STARTED, eventItem.get().getStartTimeStamp());
         }
     }
 
@@ -92,7 +94,7 @@ public class TicketService {
                 .findFirst();
 
         if (seat.isEmpty()) {
-            throw new SeatDoesNotExistException();
+            throw new SeatDoesNotExistException(ErrorCodes.SEAT_DOES_NOT_EXIST, eventId, seatId);
         }
 
         if (seat.get().isReserved()) {
@@ -106,4 +108,7 @@ public class TicketService {
                 .anyMatch(e -> e.getEventId() == eventId);
     }
 
+    public EventsDTO getEvents() {
+        return partnerClient.getEvents();
+    }
 }

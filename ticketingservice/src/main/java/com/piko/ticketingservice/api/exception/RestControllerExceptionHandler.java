@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.ResourceAccessException;
 
-;
-
+/*
+    This class is responsible for handling the business exceptions thrown in the core/ticket module to return the correct payload, http code.
+ */
 
 @ControllerAdvice
 public class RestControllerExceptionHandler {
@@ -33,46 +34,54 @@ public class RestControllerExceptionHandler {
 
     @ExceptionHandler(BadTokenException.class)
     public ResponseEntity<?> handleBadTokenExc(BadTokenException exception) {
-        logger.error("A beérkezett kérésben szereplő felhasználó token lejárt vagy nem értelmezhető");
+        logger.error("A beérkezett kérésben szereplő felhasználó token lejárt vagy nem értelmezhető: "
+                + exception.getToken(), exception);
         return new ResponseEntity<>(
                 new ErrorResponseDTO(false,
-                        ErrorCodes.BAD_USER_TOKEN.getErrorCode()),
+                        exception.getErrorCodes().getErrorCode()),
                 HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(BadCardException.class)
-    public ResponseEntity<?> handleBadCardExc() {
-        logger.error("Ez a bankkártya nem ehhez a felhasználóhoz tartozik");
+    public ResponseEntity<?> handleBadCardExc(BadCardException exception) {
+        logger.error("Ez a bankkártya: "
+                +  exception.getCardId()
+                + " nem ehhez a felhasználóhoz tartozik: "
+                + exception.getEventId(), exception);
         return new ResponseEntity<>(
                 new ErrorResponseDTO(false,
-                        ErrorCodes.USER_CARD_ISSUE.getErrorCode()),
+                        exception.getErrorCodes().getErrorCode()),
                 HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(EventAlreadyStartedException.class)
-    public ResponseEntity<?> handleEventStartedExc() {
-        logger.error("Olyan eseményre ami már elkezdődött nem lehet jegyet eladni!");
+    public ResponseEntity<?> handleEventStartedExc(EventAlreadyStartedException exception) {
+        logger.error("Olyan eseményre ami már elkezdődött nem lehet jegyet eladni! Esemény időpontja: "
+                + exception.getEventStartDate(), exception);
         return new ResponseEntity<>(
                 new ErrorResponseDTO(false,
-                        ErrorCodes.EVENT_ALREADY_STARTED.getErrorCode()),
+                        exception.getErrorCodes().getErrorCode()),
                 HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(EventDoesNotExistException.class)
-    public ResponseEntity<?> handleEventNotExistExc() {
-        logger.error("Nem létezik ilyen esemény!");
+    public ResponseEntity<?> handleEventNotExistExc(EventDoesNotExistException exception) {
+        logger.error("Nem létezik ilyen esemény! Esemény id: " + exception.getEventId(), exception);
         return new ResponseEntity<>(
                 new ErrorResponseDTO(false,
-                        ErrorCodes.EVENT_DOES_NOT_EXIST.getErrorCode()),
+                        exception.getErrorCodes().getErrorCode()),
                 HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SeatDoesNotExistException.class)
-    public ResponseEntity<?> handleSeatNotExistExc() {
-        logger.error("Nem létezik ilyen szék!");
+    public ResponseEntity<?> handleSeatNotExistExc(SeatDoesNotExistException exception) {
+        logger.error("Nem létezik ilyen szék! Esemény id: "
+                + exception.getEventId()
+                + " Szék id: "
+                + exception.getSeatId(), exception);
         return new ResponseEntity<>(
                 new ErrorResponseDTO(false,
-                        ErrorCodes.SEAT_DOES_NOT_EXIST.getErrorCode()),
+                        exception.getErrorCodes().getErrorCode()),
                 HttpStatus.BAD_REQUEST);
     }
 
