@@ -78,5 +78,6 @@ A log file a ticketingservice/src/main/resources/logs mappában található.
   - /cancelReservation - foglalás lemondása. 
   - /getAvailableSeats/{eventId} - egy event elérhető székeit visszaadni
   - /getEventsByLocation/{locationName} - egy eseményt visszaadunk a hely alapján
+- CI/CD bevezetése
 
 
