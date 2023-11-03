@@ -12,7 +12,7 @@ Ezt a readme-t szánom technikai dokumentációnak. A projektet Java nyelven csi
 - Spring Boot Web
 - Spring Security (A partnerhez)
 - Jackson a file parseolására.
-- RestTemplatet használtam a http kommunikációra. (Blokkolja a main threadet, de azt gondoltam, hogy ebben az esetben ez nem probléma.)
+- RestTemplate. 
 - H2 in-memory adatbázis a Core Servicehez
 - Hibernate ORM
 - Spring Data JPA az adatbázis kommunikációhoz.
