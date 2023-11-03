@@ -84,4 +84,4 @@ A log file a ticketingservice/src/main/resources/logs mappában található.
 
 A teszt adatok közül az első kettőnek átírtam a timestamp-jét jövőbeli dátumra, a harmadikét pedig úgy hagytam, hogy az esemény elkezdődött hibát is tesztelhessem.
 
-A tesztek lefuttatásához a **partner servicenek futnia kell** (kivéve a testPartnerServiceNotAvailable() test).
+A tesztek lefuttatásához a **partner servicenek futnia kell** (kivéve a testPartnerServiceNotAvailable() teszt).
