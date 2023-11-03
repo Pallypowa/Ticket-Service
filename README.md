@@ -65,7 +65,7 @@ Az adatbázis H2 in-memory adatbázis, a táblákat legenerálom, majd a schema.
 #### User-Token validáció
 Ha nincs User-Token, akkor a fent említett handlerben a MissingRequestHeaderException-t elkapom. Ha van, a User-Token-t a CoreService class kapja meg, ami megnézi, hogy jó-e a formátuma, létezik-e az e-mail/user/device hash és hogy a tokenben megadottak összetartoznak-e.
 #### Flow
-Alapvetően a getEvents és a getEvent a Ticket modulhoz érkezik, amely lekéri a partnertől az adatokat (getEvent esetén megnézi, hogy az event létezik-e), hiszen ebben az esetben nincs szükség a Core user logikájára.
+Alapvetően a getEvents és a getEvent a az api controllerből a Ticket modulhoz érkezik, amely lekéri a partnertől az adatokat (getEvent esetén megnézi, hogy az event létezik-e), hiszen ebben az esetben nincs szükség a Core user logikájára.
 
 Fizetés esetén a CoreService ellenőrzi le, hogy a beérkezett kártya a userhez tartozik-e és hogy van-e elég pénze a jegyre. Ha az övé a kártya és van elég pénze, akkor továbbadja az adatokat a Ticket modulnak, ami megnézi, hogy létezik-e az event/szék és hogy elkezdődött-e már az esemény.
 #### Logok
