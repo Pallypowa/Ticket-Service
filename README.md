@@ -80,4 +80,6 @@ A log file a ticketingservice/src/main/resources/logs mappában található.
   - /getEventsByLocation/{locationName} - egy eseményt visszaadunk a hely alapján
 - CI/CD bevezetése
 
+### Egyéb
 
+A teszt adatok közül az első kettőnek átírtam a timestamp-jét jövőbeli dátumra, a harmadikét pedig úgy hagytam, hogy az esemény elkezdődött hibát is tesztelhessem.
